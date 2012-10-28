@@ -347,7 +347,7 @@ def load_md5(filepath):
 		print("it has ", len(mesh.verts), " verts")
 		blender_mesh = bpy.data.meshes.new(mesh.name)
 		blender_mesh.vertices.add(len(mesh.verts))
-		blender_mesh.faces.add(len(mesh.tris))
+		blender_mesh.polygons.add(len(mesh.tris))
 		
 		for vi in range(len(mesh.verts)):
 			# TODO uses scale (1.0 is default)
@@ -358,7 +358,7 @@ def load_md5(filepath):
 		# TODO mesh.shader
 		
 		for fi in range(len(mesh.tris)):
-			f = blender_mesh.faces[fi]
+			f = blender_mesh.polygons[fi]
 			f.vertices[0] = mesh.tris[fi].vert_index[0]
 			f.vertices[1] = mesh.tris[fi].vert_index[2]
 			f.vertices[2] = mesh.tris[fi].vert_index[1]
