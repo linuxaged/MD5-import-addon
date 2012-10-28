@@ -347,7 +347,7 @@ def load_md5(filepath):
 		print("it has ", len(mesh.verts), " verts")
 		blender_mesh = bpy.data.meshes.new(mesh.name)
 		blender_mesh.vertices.add(len(mesh.verts))
-		blender_mesh.polygons.add(len(mesh.tris))
+		blender_mesh.tessfaces.add(len(mesh.tris))
 		
 		for vi in range(len(mesh.verts)):
 			# TODO uses scale (1.0 is default)
@@ -358,14 +358,14 @@ def load_md5(filepath):
 		# TODO mesh.shader
 		
 		for fi in range(len(mesh.tris)):
-			f = blender_mesh.polygons[fi]
+			f = blender_mesh.tessfaces[fi]
 			f.vertices[0] = mesh.tris[fi].vert_index[0]
 			f.vertices[1] = mesh.tris[fi].vert_index[2]
 			f.vertices[2] = mesh.tris[fi].vert_index[1]
 			# smooth the face, since md5 has smoothing for all faces
 			f.use_smooth = True
 		
-		blender_uvm = blender_mesh.uv_textures.new()
+		blender_uvm = blender_mesh.tessface_uv_textures.new()
 		for fi in range(len(mesh.tris)):
 			uvf = blender_uvm.data[fi]
 			uvf.uv1 = mesh.verts[mesh.tris[fi].vert_index[0]].uvco
